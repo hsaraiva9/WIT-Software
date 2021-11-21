@@ -1,6 +1,5 @@
 package com.challenge.rest;
 
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,7 +18,7 @@ public class MessagePublisher {
     @GetMapping ("/sum")
     public Result sum(@RequestParam Map<String, String> values){
         validation(values);
-        CustomMessage message = setMessageValues(values, CustomMessage.Operation.SUM);
+        RequestInput message = setMessageValues(values, RequestInput.Operation.SUM);
 
         return
                 template.convertSendAndReceiveAsType(
@@ -32,7 +31,7 @@ public class MessagePublisher {
     @GetMapping ("/subtraction")
     public Result subtraction(@RequestParam Map<String, String> values){
         validation(values);
-        CustomMessage message = setMessageValues(values, CustomMessage.Operation.SUBTRACTION);
+        RequestInput message = setMessageValues(values, RequestInput.Operation.SUBTRACTION);
 
         return
                 template.convertSendAndReceiveAsType(
@@ -45,7 +44,7 @@ public class MessagePublisher {
     @GetMapping ("/multiplication")
     public Result multiplication(@RequestParam Map<String, String> values){
         validation(values);
-        CustomMessage message = setMessageValues(values, CustomMessage.Operation.MULTIPLICATION);
+        RequestInput message = setMessageValues(values, RequestInput.Operation.MULTIPLICATION);
 
         return
                 template.convertSendAndReceiveAsType(
@@ -58,7 +57,7 @@ public class MessagePublisher {
     @GetMapping ("/division")
     public Result division(@RequestParam Map<String, String> values) {
         validation(values);
-        CustomMessage message = setMessageValues(values, CustomMessage.Operation.DIVISION);
+        RequestInput message = setMessageValues(values, RequestInput.Operation.DIVISION);
 
         return
                 template.convertSendAndReceiveAsType(
@@ -77,8 +76,8 @@ public class MessagePublisher {
         }
     }
 
-    private CustomMessage setMessageValues(Map<String, String> values, CustomMessage.Operation operation) {
-        return new CustomMessage(NumberUtils.parseNumber(values.get("a"), BigDecimal.class), NumberUtils.parseNumber(values.get("a"), BigDecimal.class), operation);
+    private RequestInput setMessageValues(Map<String, String> values, RequestInput.Operation operation) {
+        return new RequestInput(NumberUtils.parseNumber(values.get("a"), BigDecimal.class), NumberUtils.parseNumber(values.get("a"), BigDecimal.class), operation);
     }
 
     private boolean isNumber(String s)

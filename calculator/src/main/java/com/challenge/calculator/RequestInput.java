@@ -1,20 +1,22 @@
-package com.challenge.rest;
+package com.challenge.calculator;
+
 
 import java.math.BigDecimal;
 
-public class CustomMessage {
+public class RequestInput {
 
     private BigDecimal valueA;
     private BigDecimal valueB;
+
     private Operation operation;
 
-    public CustomMessage(BigDecimal valueA, BigDecimal valueB, Operation operation){
+    public RequestInput(BigDecimal valueA, BigDecimal valueB, Operation operation){
         this.valueA = valueA;
         this.valueB = valueB;
         this.operation = operation;
     }
 
-    public CustomMessage(){
+    public RequestInput(){
     }
 
     public BigDecimal getValueA() {
@@ -47,4 +49,5 @@ public class CustomMessage {
         MULTIPLICATION,
         SUBTRACTION
     }
+
 }
